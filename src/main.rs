@@ -100,10 +100,14 @@ async fn race_car_end_music() -> Option<NamedFile> {
 #[rocket::main]
 async fn main() {
     let _ = rocket::build()
+        .configure(rocket::Config::figment()
+           // .merge(("port", 8080))
+        )
         .mount("/", routes![
             index, home_style_css, index_js, pong_jpg, car_jpg,
             pong_index, pong_css, pong_js, car_gif,pong_gif,musica_pong, race_car_index, race_car_css,race_car_js, race_car_bg, race_car_car, race_car_car1,race_car_music,race_car_end_music
         ])
+
         .launch()
         .await;
 }
