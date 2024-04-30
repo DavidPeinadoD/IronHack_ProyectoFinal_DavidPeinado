@@ -3,7 +3,7 @@ const startScreen = document.querySelector('.startScreen');
 const gameArea = document.querySelector('.gameArea');
 const level = document.querySelector('.level');
 
-// loading audio files
+// cargar audio
 
 let gameStart = new Audio();
 let gameOver = new Audio();
@@ -11,20 +11,18 @@ let gameOver = new Audio();
 gameStart.src = "res/race_car.mp3";
 gameOver.src = "res/race_car_end.mp3";
 
-
+//dificultad
 const levelSpeed = {easy: 7, moderate: 10, difficult: 14};
-
+//movimiento
 let keys = {
-    ArrowUp: false,
-    ArrowDown: false,
-    ArrowLeft: false,
-    ArrowRight: false
+    ArrowUp: false, ArrowDown: false, ArrowLeft: false, ArrowRight: false
 }
-let player = { speed: 7, score: 0 };
-level.addEventListener('click', (e)=> {
+//seleccionar dif
+let player = {speed: 7, score: 0};
+level.addEventListener('click', (e) => {
     player.speed = levelSpeed[e.target.id];
 });
-
+//ocultar cartel
 startScreen.addEventListener('click', () => {
     // gameArea.classList.remove('hide');
     startScreen.classList.add('hide');
@@ -36,26 +34,26 @@ startScreen.addEventListener('click', () => {
     gameStart.loop = true;
     player.score = 0;
     window.requestAnimationFrame(gamePlay);
-
-    for(let i=0; i<5; i++){
+//crear carretera
+    for (let i = 0; i < 5; i++) {
         let roadLineElement = document.createElement('div');
         roadLineElement.setAttribute('class', 'roadLines');
-        roadLineElement.y = (i*150);
+        roadLineElement.y = (i * 150);
         roadLineElement.style.top = roadLineElement.y + "px";
         gameArea.appendChild(roadLineElement);
     }
-
+//creo mi ocche
     let carElement = document.createElement('div');
     carElement.setAttribute('class', 'car');
     gameArea.appendChild(carElement);
 
     player.x = carElement.offsetLeft;
-    player.y = carElement.offsetTop  ;
-
-    for(let i=0; i<3; i++){
+    player.y = carElement.offsetTop;
+//cches chocables
+    for (let i = 0; i < 3; i++) {
         let enemyCar = document.createElement('div');
         enemyCar.setAttribute('class', 'enemyCar');
-        enemyCar.y = ((i+1) * 350) * - 1;
+        enemyCar.y = ((i + 1) * 350) * -1;
         enemyCar.style.top = enemyCar.y + "px";
         enemyCar.style.backgroundColor = randomColor();
         enemyCar.style.left = Math.floor(Math.random() * 350) + "px";
@@ -63,36 +61,39 @@ startScreen.addEventListener('click', () => {
     }
 });
 
-function randomColor(){
-    function c(){
+//color aleatorio
+function randomColor() {
+    function c() {
         let hex = Math.floor(Math.random() * 256).toString(16);
-        return ("0"+ String(hex)).substr(-2);
+        return ("0" + String(hex)).substr(-2);
     }
-    return "#"+c()+c()+c();
+
+    return "#" + c() + c() + c();
 }
 
-function onCollision(a,b){
+//detectar colisiones
+function onCollision(a, b) {
     aRect = a.getBoundingClientRect();
     bRect = b.getBoundingClientRect();
 
-    return !((aRect.top >  bRect.bottom) || (aRect.bottom <  bRect.top) ||
-        (aRect.right <  bRect.left) || (aRect.left >  bRect.right));
+    return !((aRect.top > bRect.bottom) || (aRect.bottom < bRect.top) || (aRect.right < bRect.left) || (aRect.left > bRect.right));
 }
 
+//game over
 function onGameOver() {
     player.start = false;
     gameStart.pause();
     gameOver.play();
     startScreen.classList.remove('hide');
 
-    startScreen.innerHTML = "Game Over <br> Has conseguido " + player.score + " puntos " +
-        "<br> Pulsa aqui para reiniciar la partida";
+    startScreen.innerHTML = "Game Over <br> Has conseguido " + player.score + " puntos " + "<br> Pulsa aqui para reiniciar la partida";
 }
 
-function moveRoadLines(){
+// función para mover las líneas de la carretera
+function moveRoadLines() {
     let roadLines = document.querySelectorAll('.roadLines');
-    roadLines.forEach((item)=> {
-        if(item.y >= 700){
+    roadLines.forEach((item) => {
+        if (item.y >= 700) {
             item.y -= 750;
         }
         item.y += player.speed;
@@ -100,14 +101,15 @@ function moveRoadLines(){
     });
 }
 
-function moveEnemyCars(carElement){
+//funcion para mover los coches chocables
+function moveEnemyCars(carElement) {
     let enemyCars = document.querySelectorAll('.enemyCar');
-    enemyCars.forEach((item)=> {
+    enemyCars.forEach((item) => {
 
-        if(onCollision(carElement, item)){
+        if (onCollision(carElement, item)) {
             onGameOver();
         }
-        if(item.y >= 750){
+        if (item.y >= 750) {
             item.y = -300;
             item.style.left = Math.floor(Math.random() * 350) + "px";
         }
@@ -116,18 +118,19 @@ function moveEnemyCars(carElement){
     });
 }
 
+//empezar partida
 function gamePlay() {
     let carElement = document.querySelector('.car');
     let road = gameArea.getBoundingClientRect();
 
-    if(player.start){
+    if (player.start) {
         moveRoadLines();
         moveEnemyCars(carElement);
 
-        if(keys.ArrowUp && player.y > (road.top + 70)) player.y -= player.speed;
-        if(keys.ArrowDown && player.y < (road.bottom - 85)) player.y += player.speed;
-        if(keys.ArrowLeft && player.x > 0) player.x -= player.speed;
-        if(keys.ArrowRight && player.x < (road.width - 70)) player.x += player.speed;
+        if (keys.ArrowUp && player.y > (road.top + 70)) player.y -= player.speed;
+        if (keys.ArrowDown && player.y < (road.bottom - 85)) player.y += player.speed;
+        if (keys.ArrowLeft && player.x > 0) player.x -= player.speed;
+        if (keys.ArrowRight && player.x < (road.width - 70)) player.x += player.speed;
 
         carElement.style.top = player.y + "px";
         carElement.style.left = player.x + "px";
@@ -139,12 +142,14 @@ function gamePlay() {
         score.innerHTML = 'Score: ' + ps;
     }
 }
-document.addEventListener('keydown', (e)=>{
+
+//pulsacion de teclas para el movimiento
+document.addEventListener('keydown', (e) => {
     e.preventDefault();
     keys[e.key] = true;
 });
 
-document.addEventListener('keyup', (e)=>{
+document.addEventListener('keyup', (e) => {
     e.preventDefault();
     keys[e.key] = false;
 });

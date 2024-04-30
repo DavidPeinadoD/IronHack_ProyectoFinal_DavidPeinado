@@ -310,6 +310,6 @@ function startGame() {
             gameStart.play();
 
         }
-    }, 1000 / 50);
+    }, 1000 / 60);
 }
 
