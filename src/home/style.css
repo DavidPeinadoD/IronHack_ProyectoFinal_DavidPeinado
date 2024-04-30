@@ -1,0 +1,55 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #222;
+//    background-image: url('ruta/de/la/imagen.jpg'); /* Ruta de la imagen de fondo */
+    background-size: cover; /* Ajusta la imagen al tamaño completo del elemento */
+    background-repeat: no-repeat; /* Evita que la imagen de fondo se repita */
+    background-position: center center; /* Centra la imagen de fondo */
+    }
+
+
+.press-start-2p-regular {
+    font-family: "Press Start 2P", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    color: #fff;
+    text-align: center;
+    margin-top: 100px;
+}
+
+
+
+.games {
+    display: flex;
+    justify-content: space-around; /* Distribuye los elementos uniformemente con espacio alrededor */
+    align-items: center; /* Centra verticalmente los elementos */
+    margin-top: 25vh; /* Centra los elementos verticalmente en la mitad del alto de la pantalla */
+    margin-left: 5vw; /* Margen izquierdo del 5% del ancho del viewport */
+    margin-right: 5vw; /* Margen derecho del 5% del ancho del viewport */
+}
+
+.game {
+    text-align: center;
+    width: 25vw; /* Ancho del 25% del ancho del viewport */
+    margin: 0 1vw; /* Margen de 1% del ancho del viewport horizontalmente */
+}
+
+.game img {
+    display: block;
+    width: 100%; /* Ocupa el 100% del ancho del contenedor .game */
+    height: 300px; /* Altura automática para mantener la proporción */
+    border: 3px solid transparent;
+    border-radius: 10px;
+    transition: border-color 0.3s ease;
+}
+
+.game p {
+    margin-top: 10px; /* Espacio entre la imagen y el nombre del juego */
+    color: #fff; /* Color del texto */
+}
+
+.game:hover img {
+    border-color: #007bff; /* Cambiamos el color del borde al pasar el ratón sobre el juego */
+}

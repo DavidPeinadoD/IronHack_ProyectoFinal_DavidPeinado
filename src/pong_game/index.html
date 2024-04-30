@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ping pong game</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+<div id="preloader">
+    <h1>Ping Pong Game</h1>
+    <button id="onePlayerBtn" class="button">1 Jugador</button>
+    <button id="twoPlayersBtn" class="button">2 Jugadores</button>
+    <button id="instructionsBtn" class="button">Instrucciones</button>
+</div>
+
+
+<div id="can">
+    <canvas id="myGame" width="400" height="600"></canvas>
+</div>
+
+<div id="result">
+    <h1 id="win">Game over</h1>
+    <button id="btn" onclick="location.reload()">Restart</button>
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>
