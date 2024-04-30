@@ -11,3 +11,10 @@ rocket = "0.5.0"
 [[bin]]
 name = "IronHack_ProyectoFinal"
 path = "src/main.rs"
+
+
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
