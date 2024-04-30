@@ -17,6 +17,11 @@ async fn index_js() -> Option<NamedFile> {
     NamedFile::open("src/home/index.js").await.ok()
 }
 
+#[get("/res/home.jpg")]
+async fn home_jpg() -> Option<NamedFile> {
+    NamedFile::open("src/home/res/home.jpg").await.ok()
+}
+
 #[get("/res/pong.jpg")]
 async fn pong_jpg() -> Option<NamedFile> {
     NamedFile::open("src/home/res/pong.jpg").await.ok()
@@ -104,7 +109,7 @@ async fn main() {
            // .merge(("port", 8080))
         )
         .mount("/", routes![
-            index, home_style_css, index_js, pong_jpg, car_jpg,
+            index, home_style_css, index_js,home_jpg, pong_jpg, car_jpg,
             pong_index, pong_css, pong_js, car_gif,pong_gif,musica_pong, race_car_index, race_car_css,race_car_js, race_car_bg, race_car_car, race_car_car1,race_car_music,race_car_end_music
         ])
 
